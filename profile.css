@@ -27,6 +27,11 @@
 
 .profile-container table{
     height: 180px;
-    width: 20%;
+    width: 28%;
     text-align: left;
+}
+
+.profile-icon{
+    color: blue;
+    font-size: 136px;
 }
