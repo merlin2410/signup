@@ -55,6 +55,7 @@ submitButton.addEventListener('click',(event)=>{
         userList.push(userDetails);
         localStorage.setItem("userDetails", JSON.stringify(userDetails));
         localStorage.setItem("userList",JSON.stringify(userList));
+        redirect();
     }
     console.log(name);
 })
