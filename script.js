@@ -4,6 +4,18 @@ emailField = document.getElementById('email');
 passwordField = document.getElementById('password');
 confirmPasswordField = document.getElementById('confirm-password');
 submitButton = document.getElementById('submit-btn');
+let userList = [];
+if(localStorage.getItem("userList")!==null){
+    userList = JSON.parse(localStorage.getItem("userList"));
+}
+if(localStorage.getItem("userDetails")!==null){
+    currUserDetails = JSON.parse(localStorage.getItem("userDetails"));
+    for(let user of userList){
+        if(user.token===currUserDetails.token){
+            redirect();
+        }
+    }
+}
 
 submitButton.addEventListener('click',(event)=>{
     event.preventDefault();
@@ -33,5 +45,32 @@ submitButton.addEventListener('click',(event)=>{
             mainContainer.appendChild(errorMessagePw);
         }
     }
+    else{
+        let userDetails = {
+            name: name,
+            email: email,
+            password: password,
+            token: generateToken()
+        }
+        userList.push(userDetails);
+        localStorage.setItem("userDetails", JSON.stringify(userDetails));
+        localStorage.setItem("userList",JSON.stringify(userList));
+    }
     console.log(name);
 })
+
+function generateToken(){
+    let str = 'ABCDEFGHIJKLMNOPQRSTUVWXVZabcdefghijklmnopqrstuvwxyz0123456789';
+    let token = '';
+    for(let i=0;i<16;i++){
+        let index = Math.floor((Math.random() * str.length));
+        console.log(index);
+        token += str[index];
+    }
+    console.log(token);
+    return token;
+}
+
+function redirect(){
+    window.location.href = 'profile.html'
+}
